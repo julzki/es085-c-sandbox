@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ES085 C Programming Sandbox</title>
+<style>
+body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:linear-gradient(135deg,#fff,#fff8ea);color:#17202a}
+.page{max-width:1100px;margin:auto;padding:24px}
+header{display:flex;align-items:center;gap:20px;border-bottom:4px solid #a71919;padding:12px 4px 18px}
+.logo{width:72px;height:72px;border:5px solid #a71919;border-radius:50%;display:grid;place-items:center;text-align:center;font-weight:900;color:#a71919;background:#fff}
+h1{margin:0;color:#a71919;font-size:38px}.subtitle{font-size:18px;font-weight:700}.tag{color:#a71919;font-style:italic}
+.welcome{text-align:center;padding:22px}.welcome h2{color:#a71919}
+.panel{background:#11151a;border-radius:12px;overflow:hidden;box-shadow:0 8px 24px #0002}
+.bar{background:linear-gradient(90deg,#a71919,#c51f1f);color:#fff;padding:13px 17px;font-weight:700;display:flex;justify-content:space-between}
+textarea{width:100%;min-height:300px;box-sizing:border-box;background:#0e1216;color:#e8edf2;border:0;padding:20px;font:16px/1.6 Consolas,monospace;outline:none}
+.controls{text-align:center;padding:16px;background:#111;border-top:1px solid #343b44}
+button{border:0;border-radius:8px;padding:11px 24px;font-weight:800;cursor:pointer}
+#run{background:#c51f1f;color:white;font-size:17px}#reset,#clear{background:#20262d;color:#eee;border:1px solid #59616a}
+.output{margin-top:20px}.output .bar{background:#20252b}
+pre{margin:0;min-height:130px;padding:20px;background:#000;color:#52ff67;font:17px/1.6 Consolas,monospace;white-space:pre-wrap}
+.tip{margin-top:18px;padding:15px;background:#fff8df;border:1px solid #e6d79a;border-radius:9px}
+footer{text-align:center;color:#666;padding:20px}
+</style>
+</head>
+<body>
+<div class="page">
+<header><div class="logo">ES085<br>C</div><div><h1>ES085</h1><div class="subtitle">C PROGRAMMING</div><div class="tag">Code. Practice. Create.</div></div></header>
+<section class="welcome"><h2>Welcome to ES085!</h2><p>Let's begin our journey into C Programming.</p><strong>Learn. Practice. Program.</strong></section>
+
+<div class="panel">
+<div class="bar"><span>💻 C SANDBOX</span><span>C</span></div>
+<textarea id="code">#include <stdio.h>
+
+int main()
+{
+    printf("Welcome to ES085 course!\n");
+    return 0;
+}</textarea>
+<div class="controls"><button id="run">▶ RUN CODE</button> <button id="reset">↻ Reset Code</button></div>
+</div>
+
+<div class="panel output">
+<div class="bar"><span>🖥 OUTPUT</span><button id="clear">Clear Output</button></div>
+<pre id="output">Press "RUN CODE" to execute the program.</pre>
+</div>
+
+<div class="tip">⭐ <b>Tip:</b> In C, program execution begins with the <b>main()</b> function. Try changing the message inside <b>printf()</b> and run it again.</div>
+<footer>ES085 | C Programming</footer>
+</div>
+
+<script>
+const code=document.getElementById("code"), output=document.getElementById("output"), starter=code.value;
+function unescapeC(s){return s.replace(/\\n/g,"\n").replace(/\\t/g,"\t").replace(/\\"/g,'"').replace(/\\\\/g,"\\");}
+document.getElementById("run").onclick=()=>{
+ let m, out=[], re=/printf\s*\(\s*"((?:\\.|[^"\\])*)"\s*\)\s*;/g;
+ while((m=re.exec(code.value))!==null) out.push(unescapeC(m[1]));
+ output.textContent=out.length?out.join("\n"):"No printf() statement was found.";
+};
+document.getElementById("clear").onclick=()=>output.textContent="";
+document.getElementById("reset").onclick=()=>{code.value=starter;output.textContent='Press "RUN CODE" to execute the program.';};
+</script>
+</body>
+</html>
